@@ -12,7 +12,7 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV="production"
 ENV NEXT_PUBLIC_API_URL="https://betconverter-backend.onrender.com"
-ENV NEXT_PUBLIC_ANALYTICS_URL="https://analytics.betconverter.xyz"
+ENV NEXT_PUBLIC_ANALYTICS_URL=""
 ENV NEXT_PUBLIC_APP_ID="betconverter"
 ENV SKIP_ENV_VALIDATION="true"
 
