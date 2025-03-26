@@ -55,37 +55,49 @@ function isApiErrorResponse(error: unknown): error is { response?: { data?: ApiE
 }
 
 export default function HomePage() {
-  const [data, setData] = useState({
+  const [bookiesList, setBookiesList] = useState<IBookie[]>([]);
+  const [inputOpen, setInputOpen] = useState(false);
+  const [outputOpen, setOutputOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [forceRemove, setForceRemove] = useState(false);
+  const [data, setData] = useState<{
+    code: string;
+    input: {
+      name: string;
+      country: string;
+      countryShortCode: string;
+      inputDisabled: boolean;
+      outputDisabled: boolean;
+    };
+    output: {
+      name: string;
+      country: string;
+      countryShortCode: string;
+      inputDisabled: boolean;
+      outputDisabled: boolean;
+    };
+  }>({
     code: "",
     input: {
       name: "",
       country: "",
       countryShortCode: "",
-      inputDisabled: false,
-      outputDisabled: false,
+      inputDisabled: true,
+      outputDisabled: true,
     },
     output: {
       name: "",
       country: "",
       countryShortCode: "",
-      inputDisabled: false,
-      outputDisabled: false,
+      inputDisabled: true,
+      outputDisabled: true,
     },
-    remove: false,
   });
-
   const [resData, setResData] = useState<{
     shareCode: string;
     shareURL: string;
   } | null>(null);
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [inputOpen, setInputOpen] = useState(false);
-  const [outputOpen, setOutputOpen] = useState(false);
-  const [forceRemove, setForceRemove] = useState(false);
-  const [bookiesList, setBookiesList] = useState<IBookie[]>([]);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
@@ -100,8 +112,6 @@ export default function HomePage() {
         }
       } catch (error) {
         console.error("Failed to fetch bookies:", error);
-      } finally {
-        setIsInitialLoad(false);
       }
     };
 
@@ -280,7 +290,7 @@ export default function HomePage() {
         <div className="w-full max-w-2xl space-y-8 rounded-2xl bg-card/50 p-8 shadow-xl backdrop-blur-sm transition-all hover:shadow-2xl">
           <div className="text-center">
             <h1 className="text-4xl font-extrabold tracking-tight">
-              Heyy I'm <span className="bg-gradient-to-r from-[hsl(280,100%,70%)] to-[hsl(280,100%,60%)] bg-clip-text text-transparent">vibe coding</span>👋
+              Heyy I&apos;m <span className="bg-gradient-to-r from-[hsl(280,100%,70%)] to-[hsl(280,100%,60%)] bg-clip-text text-transparent">vibe coding</span>👋
             </h1>
             <p className="mt-2 text-muted-foreground">
               Convert your betting codes between different platforms instantly
