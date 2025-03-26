@@ -76,6 +76,7 @@ const app = new Elysia()
   //     console.log(error)
   //   }
   // })
+  .get("/health", () => ({ status: "ok" }))
   .use(home)
   .use(bookies)
   .listen(3011);
