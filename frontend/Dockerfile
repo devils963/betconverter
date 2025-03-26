@@ -2,7 +2,7 @@
 
 # Adjust BUN_VERSION as desired
 ARG BUN_VERSION=1.2.5
-FROM oven/bun:${BUN_VERSION} AS base
+FROM oven/bun:${BUN_VERSION}
 
 LABEL fly_launch_runtime="Next.js"
 
