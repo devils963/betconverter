@@ -58,7 +58,7 @@ export default function HomePage() {
   const [inputOpen, setInputOpen] = useState(false);
   const [outputOpen, setOutputOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(true);
   const [forceRemove, setForceRemove] = useState(false);
   const [data, setData] = useState<{
     code: string;
@@ -82,15 +82,15 @@ export default function HomePage() {
       name: "",
       country: "",
       countryShortCode: "",
-      inputDisabled: true,
-      outputDisabled: true,
+      inputDisabled: false,
+      outputDisabled: false,
     },
     output: {
       name: "",
       country: "",
       countryShortCode: "",
-      inputDisabled: true,
-      outputDisabled: true,
+      inputDisabled: false,
+      outputDisabled: false,
     },
   });
   const [resData, setResData] = useState<{
@@ -99,29 +99,17 @@ export default function HomePage() {
   } | null>(null);
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
     const fetchBookies = async () => {
       try {
-        const res = await axios.get<ApiResponse<IBookie[]>>(env.NEXT_PUBLIC_API_URL + "/bookies");
-        if (res.data.message === "success") {
-          setBookiesList(res.data.data);
-        }
+        const response = await axios.get<IBookie[]>(`${env.NEXT_PUBLIC_API_URL}/bookies`);
+        setBookiesList(response.data);
       } catch (error) {
         console.error("Failed to fetch bookies:", error);
       }
     };
 
-    if (isMounted) {
-      void fetchBookies();
-    }
-  }, [isMounted]);
-
-  if (!isMounted) {
-    return null;
-  }
+    void fetchBookies();
+  }, []);
 
   const hanleSubmit = async () => {
     try {
